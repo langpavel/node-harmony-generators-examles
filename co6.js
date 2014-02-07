@@ -2,6 +2,9 @@ var fs = require('fs');
 var co = require('co');
 var thunkify = require('thunkify');
 
+// názorně zobrazuje na konzoli kdy se čeká...
+var heartbeat = setInterval(function() { console.log('.') }, 240);
+
 co(function *() {
     var results = yield {
         'jmeno': print('jmeno'),
@@ -28,14 +31,16 @@ co(function *() {
         ],
     };
     console.log(JSON.stringify(results, null, 2));
-})();
+})(function() {
+  clearInterval(heartbeat);
+});
 
 function print(name) {
     return function(callback) {
         console.log('Zpracovávám ' + name);
         setTimeout(function() {
             callback(null, 'hodnota ' + name);
-        }, 500 + Math.random(1000));
+        }, 500 + Math.random() * 1000);
     };
 }
 
