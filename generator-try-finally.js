@@ -3,7 +3,7 @@ var POWER2 = 20;
 
 var inspect = require('util').inspect;
 
-console.log("Allocationg " + (1<<POWER2) + " bytes every as soon as setInterval(.., 0) can");
+console.log("Allocationg " + (1<<POWER2) + " bytes as soon as setInterval(.., 0) can");
 global.gc();
 console.log("Starting with:", process.memoryUsage());
 
